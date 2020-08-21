@@ -19,7 +19,7 @@ public class SelectorThreadGroup {
         threads = new SelectorThread[nums];
         for (int i = 0; i < nums; i++) {
             threads[i] = new SelectorThread();
-            new Thread(threads[i]).start();
+            new Thread(threads[i], "nio-thread-" + i).start();
         }
     }
 

@@ -69,7 +69,7 @@ public class SelectorThread implements Runnable {
     }
 
     private void acceptHandler(SelectionKey key) {
-        System.out.println("acceptHandler...");
+        System.out.println(Thread.currentThread().getName() + "   :  accept handler....");
         ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
         try {
             SocketChannel client = ssc.accept();
@@ -82,7 +82,7 @@ public class SelectorThread implements Runnable {
     }
 
     private void readHandler(SelectionKey key) {
-        System.out.println("readHandler...");
+        System.out.println(Thread.currentThread().getName() + "   :  read handler....");
         ByteBuffer buffer = (ByteBuffer) key.attachment();
         SocketChannel client = (SocketChannel) key.channel();
         buffer.clear();
