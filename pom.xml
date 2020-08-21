@@ -17,5 +17,6 @@
         <module>fashion-rocketmq</module>
         <module>fashion-netty</module>
         <module>fashion-redis</module>
+        <module>fashion-zookeeper</module>
     </modules>
 </project>
