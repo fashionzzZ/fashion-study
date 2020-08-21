@@ -17,7 +17,6 @@ public class RedisConfig {
 
     /**
      * 单个redisson
-     * @return
      */
     @Bean
     public RedissonClient redissonClient() {

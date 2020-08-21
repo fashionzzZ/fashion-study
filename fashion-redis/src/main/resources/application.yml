@@ -1,12 +1,6 @@
 spring:
   application:
     name: fashion-redis
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    timeout: 2000
-    password:
   datasource:
     #配置当前使用的数据源的操作类型
     type: com.alibaba.druid.pool.DruidDataSource

@@ -12,6 +12,20 @@ import org.apache.ibatis.annotations.Param;
  **/
 @Mapper
 public interface ProductMapper {
+    /**
+     * 根据ID获取商品信息
+     *
+     * @param productId 商品ID
+     * @return 商品信息
+     */
     Product selectById(@Param("productId") Long productId);
+
+    /**
+     * 修改商品数量
+     *
+     * @param productId 商品ID
+     * @param inventory 购买数量
+     * @return 结果
+     */
     int updateInventoryById(@Param("productId") Long productId, @Param("inventory") Long inventory);
 }

@@ -7,7 +7,15 @@ package com.fashion.redis.entity;
  * @date 2020/08/20
  **/
 public class Product {
+
+    /**
+     * 商品ID
+     */
     Long id;
+
+    /**
+     * 商品库存
+     */
     Long inventory;
 
     public Long getId() {
