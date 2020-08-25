@@ -25,20 +25,30 @@ public class OrderController {
 
     @RequestMapping("/order")
     public boolean createOrder() {
-        // 模拟并发请求
-        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(
-                10,
-                10,
-                0L,
-                TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(),
-                runnable -> new Thread(runnable, "order-create"));
-
-        for (int i = 0; i < 100; i++) {
-            poolExecutor.execute(() -> {
-                productService.updateProductInventory("1", 1);
-            });
+//        // 模拟并发请求
+//        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(
+//                10,
+//                10,
+//                0L,
+//                TimeUnit.SECONDS,
+//                new LinkedBlockingDeque<>(),
+//                runnable -> new Thread(runnable, "order-create"));
+//
+//        for (int i = 0; i < 100; i++) {
+//            poolExecutor.execute(() -> {
+//                productService.updateProductInventory("1", 1);
+//            });
+//        }
+        boolean res = productService.updateProductInventory("1", 1);
+        if (res) {
+            return res;
+        } else {
+            throw new RuntimeException("库存不足");
         }
-        return true;
+    }
+
+    @RequestMapping("/set")
+    public boolean setInventory() {
+        return productService.setRedisProductInventory();
     }
 }

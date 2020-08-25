@@ -15,4 +15,6 @@ public interface ProductService {
      * @return 结果
      */
     boolean updateProductInventory(String productId, Integer quantity);
+
+    boolean setRedisProductInventory();
 }
