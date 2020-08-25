@@ -98,6 +98,7 @@ public class SelectorThread implements Runnable {
                 } else if (nums == 0) {
                     break;
                 } else {
+                    // nums < 0 说明client已经断开了
                     key.cancel();
                     break;
                 }
