@@ -1,7 +1,10 @@
 package com.fashion.redis.controller;
 
 import com.fashion.redis.service.ProductService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,31 +27,20 @@ public class OrderController {
     ProductService productService;
 
     @RequestMapping("/order")
-    public boolean createOrder() {
-//        // 模拟并发请求
-//        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(
-//                10,
-//                10,
-//                0L,
-//                TimeUnit.SECONDS,
-//                new LinkedBlockingDeque<>(),
-//                runnable -> new Thread(runnable, "order-create"));
-//
-//        for (int i = 0; i < 100; i++) {
-//            poolExecutor.execute(() -> {
-//                productService.updateProductInventory("1", 1);
-//            });
-//        }
+    public ResponseEntity createOrder() {
         boolean res = productService.updateProductInventory("1", 1);
         if (res) {
-            return res;
-        } else {
-            throw new RuntimeException("库存不足");
+            return ResponseEntity.status(HttpStatus.OK).body("减库存成功");
         }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("库存不足");
     }
 
     @RequestMapping("/set")
-    public boolean setInventory() {
-        return productService.setRedisProductInventory();
+    public ResponseEntity setInventory() {
+        boolean res = productService.setRedisProductInventory("1");
+        if (res) {
+            return ResponseEntity.status(HttpStatus.OK).body("设置库存成功");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("设置库存失败");
     }
 }

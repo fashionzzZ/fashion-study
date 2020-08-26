@@ -16,5 +16,5 @@ public interface ProductService {
      */
     boolean updateProductInventory(String productId, Integer quantity);
 
-    boolean setRedisProductInventory();
+    boolean setRedisProductInventory(String productId);
 }
