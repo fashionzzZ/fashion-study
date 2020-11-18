@@ -1,0 +1,5 @@
+message:
+  template:
+    enable: true
+    chargePerson: "anonymousUser"
+    batchCount: 500
