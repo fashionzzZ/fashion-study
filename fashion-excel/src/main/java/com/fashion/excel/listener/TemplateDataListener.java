@@ -90,11 +90,11 @@ public class TemplateDataListener extends AnalysisEventListener<ExcelData> {
         // 这里也要保存数据，确保最后遗留的数据也存储到文件中
         saveData();
         list.clear();
-        LOGGER.info("所有数据解析完成！");
+        LOGGER.info("【{}】所有数据解析完成！", context.readSheetHolder().getSheetName());
     }
 
     /**
-     * 加上写入文件
+     * 持久化数据
      */
     private void saveData() {
         List<MessageTemplateModel> modelList = list.stream()
@@ -159,6 +159,9 @@ public class TemplateDataListener extends AnalysisEventListener<ExcelData> {
     private void batchSaveFile(List<MessageTemplateModel> modelList) {
         StringBuilder sb = new StringBuilder();
         for (MessageTemplateModel model : modelList) {
+            if (distinct.contains(model.getTemplateCode())) {
+                continue;
+            }
             distinct.add(model.getTemplateCode());
             String body = JSONObject.toJSONString(model);
             sb.append(CURL).append(body).append("'\n");
